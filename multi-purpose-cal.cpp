@@ -8,6 +8,10 @@
 #include <math.h>
 using namespace std;
 
+// nhấn để quay về
+void pressToReturn();
+// nhập ko hợp lệ
+void invalidInput();
 // hàm dừng code
 void pauseCode(int milliseconds);
 // hàm in màu
@@ -16,7 +20,132 @@ void printColoredText(int textColor);
 void tinhToan();
 // lựa chọn chu vi, diện tích, thể tích
 void chuViDienTichTheTich();
+// chọn hình
+void chonHinh();
 
+// tính chu vi
+class tinhChuVi
+{
+private:
+    // chu vi hcn
+    double chuViHCN(double dai, double rong)
+    {
+        double P = (dai + rong) * 2;
+        return P;
+    }
+    // chu vi hình vuông
+    double chuViHV(double canh)
+    {
+        double P = canh * 4;
+        return P;
+    }
+    // chu vi hình tròn
+    double chuViHT(double d)
+    {
+        double PI = 3.14;
+        double P = d * PI;
+        return P;
+    }
+    // chu vi hình tam giác
+    double chuViHTG(double a, double b, double c)
+    {
+        double P = a + b + c;
+        return P;
+    }
+
+public:
+    // hình chữ nhật
+    void hinhChuNhat()
+    {
+        double dai, rong;
+        cout << " Nhập chiều dài: ";
+        cin >> dai;
+        cout << endl;
+        cout << " Nhập chiều rộng: ";
+        cin >> rong;
+        cout << endl;
+        cout << " Chu vi hình chữ nhật là: " << chuViHCN(dai, rong) << endl;
+        cout << endl;
+    }
+    // hình vuông
+    void hinhVuong()
+    {
+        double canh;
+        cout << " Nhập cạnh: ";
+        cin >> canh;
+        cout << endl;
+        cout << " Chu vi hình vuông là: " << chuViHV(canh) << endl;
+        cout << endl;
+    }
+    // hình tròn
+    void hinhTron()
+    {
+        double d;
+        cout << " Nhập đường kính: ";
+        cin >> d;
+        cout << endl;
+        cout << " Chu vi hình tròn là " << chuViHT(d) << endl;
+        cout << endl;
+    }
+    // hình tam giác
+    void hinhTamGiac()
+    {
+        double a, b, c;
+        cout << " Nhập cạnh a: ";
+        cin >> a;
+        cout << endl;
+        cout << " Nhập cạnh b: ";
+        cin >> b;
+        cout << endl;
+        cout << " Nhập cạnh c: ";
+        cin >> c;
+        cout << endl;
+        cout << " Chu vi hình tam giác là: " << chuViHTG(a, b, c) << endl;;
+        cout << endl;
+    }
+    // tính chu vi
+    void chuVi()
+    {
+        bool exit = false;
+        int luaChon;
+        cout << " Đang tải..." << endl;
+        cout << endl;
+        pauseCode(100);
+
+        while (!exit)
+        {
+            chonHinh();
+
+            // người dùng nhập
+            cout << " Chọn 1 hình để tiếp tục: ";
+            cin >> luaChon;
+            cout << endl;
+
+            switch (luaChon)
+            {
+            case 1: // hình chữ nhật
+                hinhChuNhat();
+                break;
+            case 2: // hình vuông
+                hinhVuong();
+                break;
+            case 3: // hình tròn
+                hinhTron();
+                break;
+            case 4: // hình tam giác
+                hinhTamGiac();
+                break;
+            case 0: // thoát
+                exit = true;
+                pressToReturn();
+                break;
+            default:
+                invalidInput();
+                break;
+            }
+        }
+    }
+};
 int main()
 {
     // thiết lập tiếng việt
@@ -25,7 +154,7 @@ int main()
     int usrChoice;
     bool validUsrChoice = false;
 
-    cout << " Multi Purpose Calculator v2.0 --- 16-4-24" << endl;
+    cout << " Multi Purpose Calculator v2.1 --- 19-4-24" << endl;
     cout << endl;
     pauseCode(1000);
 
@@ -77,7 +206,24 @@ int main()
         }
     }
 }
-
+// nhấn để quay về
+void pressToReturn()
+{
+    cout << endl;
+    cout << " Bấm bất kì phím nào để quy về màn hình chính" << endl;
+    getch();
+    cout << endl;
+    cout << " Đang quay về màn hình chính..." << endl;
+    cout << endl;
+    main();
+}
+// nhập không hợp lệ
+void invalidInput()
+{
+    cout << " Lựa chọn không hợp lệ! Vui lòng thử lại" << endl;
+    cout << endl;
+    pauseCode(1000);
+}
 // hàm dừng code
 void pauseCode(int milliseconds)
 {
@@ -127,13 +273,7 @@ void tinhToan()
         if (luaChon == "e")
         {
             validOp = true;
-            cout << " Bấm bất kì phím nào để quay về màn hình chính" << endl;
-            getch();
-            cout << endl;
-            cout << " Đang quay về màn hình chính..." << endl;
-            cout << endl;
-            pauseCode(250);
-            main();
+            pressToReturn();
         }
         // tính căn bậc hai
         else if (luaChon == "sqrt")
@@ -220,75 +360,17 @@ void chonHinh()
     cout << endl;
 
     cout << " Phím 1: Hình chữ nhật" << endl;
-    cout << " Phím 2: Hình hộp chữ nhật" << endl;
-    cout << " Phím 3: Hình vuông" << endl;
-    cout << " Phím 4: Hình tròn" << endl;
-    cout << " Phím 5: Hình tam giác" << endl;
-    cout << " Phím 6: Hình bình hành" << endl;
-    cout << " Phím 7: Hình thang" << endl;
-    cout << " Phím 8: Hình chóp tam giác đều" << endl;
-    cout << " Phím 9: Hình chóp tứ giác đều" << endl;
+    cout << " Phím 2: Hình vuông" << endl;
+    cout << " Phím 3: Hình tròn" << endl;
+    cout << " Phím 4: Hình tam giác" << endl;
     cout << " Phím 0: Thoát" << endl;
     cout << endl;
 }
-// tính chu vi
-void chuVi()
-{
-    bool validUsrChoice = false;
-    int luaChon;
-    cout << " Đang tải..." << endl;
-    cout << endl;
-    pauseCode(100);
 
-    while (!validUsrChoice)
-    {
-        chonHinh();
-        cout << " Chọn 1 hinh để tiếp tục: ";
-        cin >> luaChon;
-
-        switch (luaChon)
-        {
-        case 1: // hình chữ nhật
-            validUsrChoice = true;
-            break;
-        case 2: // hình hộp chữ nhật
-            validUsrChoice = true;
-            break;
-        case 3: // hình vuông
-            validUsrChoice = true;
-            break;
-        case 4: // hình tròn
-            validUsrChoice = true;
-            break;
-        case 5: // hình tam giác
-            validUsrChoice = true;
-            break;
-        case 6: // hình bình hành
-            validUsrChoice = true;
-            break;
-        case 7: // hình thang
-            validUsrChoice = true;
-            break;
-        case 8: // hình chóp tam giác đều
-            validUsrChoice = true;
-            break;
-        case 9: // hình chóp tứ giác đều
-            validUsrChoice = true;
-            break;
-        case 0: // thoát
-            validUsrChoice = true;
-            break;
-        default:
-            cout << " Lựa chọn không hợp lệ! Vui lòng nhập lại" << endl;
-            cout << endl;
-            pauseCode(1000);
-            break;
-        }
-    }
-}
 // lựa chọn chu vi, diện tích, thể tích
 void chuViDienTichTheTich()
 {
+    tinhChuVi tinhChuVi;
     bool validUsrChoice = false;
     int luaChon;
     cout << " Đang tải..." << endl;
@@ -316,7 +398,7 @@ void chuViDienTichTheTich()
         {
         case 1:
             validUsrChoice = true;
-            chuVi();
+            tinhChuVi.chuVi();
             break;
         case 2:
             validUsrChoice = true;
