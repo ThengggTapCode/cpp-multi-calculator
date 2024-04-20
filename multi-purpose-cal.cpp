@@ -58,34 +58,40 @@ public:
     void hinhChuNhat()
     {
         double dai, rong;
-        cout << " Nhập chiều dài: ";
+        cout << " Nhập chiều dài hình chữ nhật: ";
         cin >> dai;
         cout << endl;
-        cout << " Nhập chiều rộng: ";
+        cout << " Nhập chiều rộng hình chữ nhật: ";
         cin >> rong;
         cout << endl;
+        pauseCode(250);
         cout << " Chu vi hình chữ nhật là: " << chuViHCN(dai, rong) << endl;
         cout << endl;
+        pauseCode(1000);
     }
     // hình vuông
     void hinhVuong()
     {
         double canh;
-        cout << " Nhập cạnh: ";
+        cout << " Nhập độ dài cạnh hình vuông: ";
         cin >> canh;
         cout << endl;
+        pauseCode(250);
         cout << " Chu vi hình vuông là: " << chuViHV(canh) << endl;
         cout << endl;
+        pauseCode(1000);
     }
     // hình tròn
     void hinhTron()
     {
         double d;
-        cout << " Nhập đường kính: ";
+        cout << " Nhập đường kính hình tròn: ";
         cin >> d;
         cout << endl;
+        pauseCode(250);
         cout << " Chu vi hình tròn là " << chuViHT(d) << endl;
         cout << endl;
+        pauseCode(1000);
     }
     // hình tam giác
     void hinhTamGiac()
@@ -100,8 +106,10 @@ public:
         cout << " Nhập cạnh c: ";
         cin >> c;
         cout << endl;
-        cout << " Chu vi hình tam giác là: " << chuViHTG(a, b, c) << endl;;
+        pauseCode(250);
+        cout << " Chu vi hình tam giác là: " << chuViHTG(a, b, c) << endl;
         cout << endl;
+        pauseCode(1000);
     }
     // tính chu vi
     void chuVi()
@@ -146,6 +154,126 @@ public:
         }
     }
 };
+// tính diện tích
+class tinhDienTich
+{
+private:
+    double dienTichHCN(double dai, double rong)
+    {
+        double dienTich = dai * rong; // s = a x b
+        return dienTich;
+    }
+    double dienTichHV(double canh)
+    {
+        double dienTich = canh * canh; // s = a^2
+        return dienTich;
+    }
+    double dienTichHT(double r)
+    {
+        double PI = 3.14;
+        double dienTich = r * r * PI; // s = r^2 x 3.24
+        return dienTich;
+    }
+    double dienTichHTG(double cao, double day)
+    {
+        double dienTich = (cao * day) / 2; // s = 1/2 x (a x h)
+        return dienTich;
+    }
+
+public:
+    void hinhChuNhat()
+    {
+        double dai, rong;
+        cout << " Nhập chiều dài hình chữ nhật: ";
+        cin >> dai;
+        cout << endl;
+        cout << " Nhập chiều rộng hình chữ nhật: ";
+        cin >> rong;
+        cout << endl;
+        pauseCode(250);
+        cout << " Diện tích hình chữ nhật là: " << dienTichHCN(dai, rong) << endl;
+        cout << endl;
+        pauseCode(1000);
+    }
+    void hinhVuong()
+    {
+        double canh;
+        cout << " Nhập độ dài cạnh hình vuông: ";
+        cin >> canh;
+        cout << endl;
+        pauseCode(250);
+        cout << " Diện tích hình vuông là: " << dienTichHV(canh) << endl;
+        cout << endl;
+        pauseCode(1000);
+    }
+    void hinhTron()
+    {
+        double banKinh;
+        cout << " Nhập bán kính hình tròn: ";
+        cin >> banKinh;
+        cout << endl;
+        pauseCode(250);
+        cout << " Diện tích hình tròn là: " << dienTichHT(banKinh) << endl;
+        cout << endl;
+        pauseCode(1000);
+    }
+    void hinhTamGiac()
+    {
+        double cao, day;
+        cout << " Nhập chiều cao hình tam giác: ";
+        cin >> cao;
+        cout << endl;
+        cout << " Nhập độ dài đáy hình tam giác: ";
+        cin >> day;
+        cout << endl;
+        pauseCode(250);
+        cout << " Diện tích hình tam giác là: " << dienTichHTG(cao, day) << endl;
+        cout << endl;
+        pauseCode(1000);
+    }
+    void dienTich()
+    {
+        bool exit = false;
+        int luaChon;
+        cout << " Đang tải..." << endl;
+        cout << endl;
+        pauseCode(100);
+
+        while (!exit)
+        {
+            chonHinh();
+
+            // người dùng nhập
+            cout << " Chọn 1 hình để tiếp tục: ";
+            cin >> luaChon;
+            cout << endl;
+
+            // kiểm tra lựa chọn
+            switch (luaChon)
+            {
+            case 1:
+                hinhChuNhat();
+                break;
+            case 2:
+                hinhVuong();
+                break;
+            case 3:
+                hinhTron();
+                break;
+            case 4:
+                hinhTamGiac();
+                break;
+            case 0:
+                exit = true;
+                pressToReturn();
+                break;
+            default:
+                invalidInput();
+                break;
+            }
+        }
+    }
+};
 int main()
 {
     // thiết lập tiếng việt
@@ -154,7 +282,7 @@ int main()
     int usrChoice;
     bool validUsrChoice = false;
 
-    cout << " Multi Purpose Calculator v2.1 --- 19-4-24" << endl;
+    cout << " Multi Purpose Calculator v2.2 --- 20-4-24" << endl;
     cout << endl;
     pauseCode(1000);
 
@@ -167,7 +295,7 @@ int main()
         cout << " PHÍM 1: Tính toán cơ bản" << endl;
         cout << " PHÍM 2: Tính chu vi, diện tích, thể tích" << endl;
         cout << " PHÍM 3: Chuyển đổi" << endl;
-        cout << " PHÍM 4: Thoát" << endl;
+        cout << " PHÍM 0: Thoát" << endl;
         cout << endl;
 
         // người dùng nhập lựa chọn
@@ -190,7 +318,7 @@ int main()
         case 3:
             validUsrChoice = true;
             break;
-        case 4:
+        case 0:
             validUsrChoice = true;
             cout << " Bấm bất kì phím nào để thoát chương trình" << endl;
             cout << endl;
@@ -210,7 +338,7 @@ int main()
 void pressToReturn()
 {
     cout << endl;
-    cout << " Bấm bất kì phím nào để quy về màn hình chính" << endl;
+    cout << " Bấm bất kì phím nào để quay về màn hình chính" << endl;
     getch();
     cout << endl;
     cout << " Đang quay về màn hình chính..." << endl;
@@ -371,6 +499,7 @@ void chonHinh()
 void chuViDienTichTheTich()
 {
     tinhChuVi tinhChuVi;
+    tinhDienTich tinhDienTich;
     bool validUsrChoice = false;
     int luaChon;
     cout << " Đang tải..." << endl;
@@ -402,6 +531,7 @@ void chuViDienTichTheTich()
             break;
         case 2:
             validUsrChoice = true;
+            tinhDienTich.dienTich();
             break;
         case 3:
             validUsrChoice = true;
